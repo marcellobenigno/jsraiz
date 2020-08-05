@@ -62,31 +62,43 @@ const carrinhoItens = {
         nome: 'JSRaiz para FW',
         preco: 336,
         descricao: 'O melhor curso de JS',
-        imagem: 'http://picsum.photos/501'
+        imagem: 'http://picsum.photos/501',
+        quantidade: 1
     },
     2: {
         id: 2,
         nome: 'WTDD',
         preco: 400,
         descricao: 'Aprenda Django',
-        imagem: 'http://picsum.photos/502'
+        imagem: 'http://picsum.photos/502',
+        quantidade: 2
     }
 };
 
-console.log(carrinhoItens[2]);
 
-function renderizaCarrinho() {
+function renderizaItemCarrinho(produtoCarrinho) {
     return `
             <div class="card carrinho__item">
                 <div class="card-body">
-                    <h5 class="card-title">JsRaiz para FW</h5>
-                    <p class="card-text">Preço Unidade: R$ 300,00 | Quantidade: 2</p>
-                    <p class="card-text">Valor : R$ 600,00</p>
+                    <h5 class="card-title">${produtoCarrinho.nome}</h5>
+                    <p class="card-text">Preço Unidade: R$ ${produtoCarrinho.preco} 
+                    | Quantidade: ${produtoCarrinho.quantidade}</p>
+                    <p class="card-text">Valor : R$ ${produtoCarrinho.preco * produtoCarrinho.quantidade}</p>
                     <button data-value="300" class="btn btn-danger btn-sm">Remover</button>
                 </div>
             </div>
             `
 }
+
+
+function renderizaCarrinho() {
+    let html = '';
+    for (let produtoID in carrinhoItens) {
+        html = html + renderizaItemCarrinho(carrinhoItens[produtoID]);
+    }
+    return html;
+}
+
 
 document.querySelector('.loja').innerHTML = renderizaProdutos();
 
