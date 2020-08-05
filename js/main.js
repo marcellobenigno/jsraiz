@@ -56,4 +56,20 @@ function renderizaProdutos() {
     return html
 }
 
+
+function renderizaCarrinho() {
+    return `
+            <div class="card carrinho__item">
+                <div class="card-body">
+                    <h5 class="card-title">JsRaiz para FW</h5>
+                    <p class="card-text">Preço Unidade: R$ 300,00 | Quantidade: 2</p>
+                    <p class="card-text">Valor : R$ 600,00</p>
+                    <button data-value="300" class="btn btn-danger btn-sm">Remover</button>
+                </div>
+            </div>
+            `
+}
+
 document.querySelector('.loja').innerHTML = renderizaProdutos();
+
+document.querySelector('.carrinho__itens').innerHTML = renderizaCarrinho();
