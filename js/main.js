@@ -56,6 +56,24 @@ function renderizaProdutos() {
     return html
 }
 
+const carrinhoItens = {
+    1: {
+        id: 1,
+        nome: 'JSRaiz para FW',
+        preco: 336,
+        descricao: 'O melhor curso de JS',
+        imagem: 'http://picsum.photos/501'
+    },
+    2: {
+        id: 2,
+        nome: 'WTDD',
+        preco: 400,
+        descricao: 'Aprenda Django',
+        imagem: 'http://picsum.photos/502'
+    }
+};
+
+console.log(carrinhoItens[2]);
 
 function renderizaCarrinho() {
     return `
