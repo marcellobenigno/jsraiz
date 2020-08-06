@@ -40,7 +40,7 @@ function renderizaProduto(produto) {
                             <h5 class="card-title">${produto.nome}</h5>
                             <small>R$ ${produto.preco}</small>
                             <p class="card-text">${produto.descricao}</p>
-                            <button data-value="300" class="btn btn-primary">Adicionar</button>
+                            <button data-value="300" class="btn btn-primary btn-add">Adicionar</button>
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,6 @@ function renderizaItemCarrinho(produtoCarrinho) {
             `
 }
 
-
 function renderizaCarrinho() {
     let html = '';
     for (let produtoID in carrinhoItens) {
@@ -98,6 +97,14 @@ function renderizaCarrinho() {
     }
     return html;
 }
+
+document.body
+    .addEventListener('click', function (event) {
+        const elemento = event.target;
+        if (elemento.classList.contains('btn-add')) {
+            console.log('faz algo...');
+        }
+    });
 
 
 document.querySelector('.loja').innerHTML = renderizaProdutos();
