@@ -30,7 +30,7 @@ const produtos = [
 ];
 
 
-function renderizaProduto(produto) {
+function renderizaProduto(produto, index) {
     return `
             <div class="col-sm-4 mb-3">
                 <div class="card">
@@ -40,7 +40,7 @@ function renderizaProduto(produto) {
                             <h5 class="card-title">${produto.nome}</h5>
                             <small>R$ ${produto.preco}</small>
                             <p class="card-text">${produto.descricao}</p>
-                            <button data-value="300" class="btn btn-primary btn-add">Adicionar</button>
+                            <button data-index="${index}" data-value="300" class="btn btn-primary btn-add">Adicionar</button>
                         </div>
                     </div>
                 </div>
@@ -51,29 +51,12 @@ function renderizaProduto(produto) {
 function renderizaProdutos() {
     let html = '';
     for (let i = 0; i < produtos.length; i++) {
-        html = html + renderizaProduto(produtos[i]);
+        html = html + renderizaProduto(produtos[i], i);
     }
     return html
 }
 
-const carrinhoItens = {
-    1: {
-        id: 1,
-        nome: 'JSRaiz para FW',
-        preco: 336,
-        descricao: 'O melhor curso de JS',
-        imagem: 'http://picsum.photos/501',
-        quantidade: 1
-    },
-    2: {
-        id: 2,
-        nome: 'WTDD',
-        preco: 400,
-        descricao: 'Aprenda Django',
-        imagem: 'http://picsum.photos/502',
-        quantidade: 2
-    }
-};
+const carrinhoItens = {};
 
 
 function renderizaItemCarrinho(produtoCarrinho) {
@@ -95,18 +78,23 @@ function renderizaCarrinho() {
     for (let produtoID in carrinhoItens) {
         html = html + renderizaItemCarrinho(carrinhoItens[produtoID]);
     }
-    return html;
+    document.querySelector('.carrinho__itens').innerHTML = html;
 }
 
 document.body
     .addEventListener('click', function (event) {
         const elemento = event.target;
         if (elemento.classList.contains('btn-add')) {
-            console.log('faz algo...');
+            const index = parseInt(elemento.getAttribute('data-index'), 10);
+            const produto = produtos[index];
+
+            if (!carrinhoItens[produto.id]) {
+                carrinhoItens[produto.id] = produto;
+                carrinhoItens[produto.id].quantidade = 1;
+            }
+            renderizaCarrinho();
         }
     });
 
 
 document.querySelector('.loja').innerHTML = renderizaProdutos();
-
-document.querySelector('.carrinho__itens').innerHTML = renderizaCarrinho();
