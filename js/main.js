@@ -98,3 +98,4 @@ document.body
 
 
 document.querySelector('.loja').innerHTML = renderizaProdutos();
+
