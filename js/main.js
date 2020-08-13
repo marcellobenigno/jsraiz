@@ -67,7 +67,7 @@ function renderizaItemCarrinho(produtoCarrinho) {
                     <p class="card-text">Preço Unidade: R$ ${produtoCarrinho.preco} 
                     | Quantidade: ${produtoCarrinho.quantidade}</p>
                     <p class="card-text">Valor : R$ ${produtoCarrinho.preco * produtoCarrinho.quantidade}</p>
-                    <button data-value="300" class="btn btn-danger btn-sm">Remover</button>
+                    <button data-produto-id="${produtoCarrinho.id}" class="btn btn-danger btn-sm btn-remove">Remover</button>
                 </div>
             </div>
             `
@@ -89,7 +89,13 @@ function renderCarrinhoTotal() {
     let vazio = document.getElementById("carrinho-vazio");
     vazio.style.display = "none";
 
-    document.querySelector('.carrinho__total').innerHTML = `<h6>Total: R$ <strong>${total}</strong></h6>`;
+    if (total != 0) {
+        document.querySelector('.carrinho__total').innerHTML = `<h6>Total: R$ <strong>${total}</strong></h6>`;
+    } else {
+        document.querySelector('.carrinho__total').innerHTML = '';
+        vazio.style.display = "initial";
+    }
+
 
 }
 
@@ -113,6 +119,17 @@ document.body
             const produto = produtos[index];
 
             adicionaItemCarrinho(produto)
+        }
+
+        if (elemento.classList.contains('btn-remove')) {
+            const produtoId = elemento.getAttribute('data-produto-id');
+            if (carrinhoItens[produtoId].quantidade <= 1) {
+                delete carrinhoItens[produtoId];
+            } else {
+                --carrinhoItens[produtoId].quantidade;
+            }
+            renderizaCarrinho();
+            renderCarrinhoTotal();
         }
     });
 
