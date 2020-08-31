@@ -10,48 +10,74 @@
 <!-- /#app -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+
+    const ProdutoComponent = {
+        template: `
+        <div class="col-sm-4 mb-3">
+            <div class="card loja__item">
+                <img src="http://picsum.photos/501" class="card-img-top" alt="img-1">
+                <div class="card-body">
+                    <h5 class="card-title">Curso FW</h5>
+                    <small>R$ 300</small>
+                    <p class="card-text">Curso de Vue JS</p>
+                    <button data-value="300" class="btn btn-primary btn-add">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+        `
+    }
+
+    const ListaProdutosComponent = {
+        template: `
+        <div class="row loja">
+            <slot />
+        </div>
+       `
+    };
+
+    const CarrinhoComponent = {
+        template: `
+        <div class="carrinho">
+            <h4>Carrinho de Compras</h4>
+            <div class="carrinho__itens">
+                <div class="card carrinho__item">
+                    <div class="card-body">
+                        <h5 class="card-title">Curso FW</h5>
+                        <p class="card-text">Preço Unidade: R$ 300,00
+                        | Quantidade: 2</p>
+                        <p class="card-text">Valor : R$ 600,00</p>
+                        <button data-produto-id="1" class="btn btn-danger btn-sm btn-remove">Remover</button>
+                    </div>
+                </div>
+            </div>
+            <div class="carrinho__total mt-2 p-3">
+                <h6>Total: R$ <strong>600,00</strong></h6>
+            </div>
+        </div>
+        `
+    };
+
     new Vue({
         el: '#app',
+        components: {
+            ListaProdutos: ListaProdutosComponent,
+            Produto: ProdutoComponent,
+            Carrinho: CarrinhoComponent
+        },
         template: `
         <div class="container">
             <h1 class="mt-3">Carrinho Vue</h1>
             <hr>
             <div class="row">
                 <div class="col-sm-8">
-                    <div class="row loja">
-                        <div class="col-sm-4 mb-3">
-                            <div class="card loja__item">
-                                <img src="http://picsum.photos/501" class="card-img-top" alt="img-1">
-                                <div class="card-body">
-                                    <h5 class="card-title">Curso FW</h5>
-                                    <small>R$ 300</small>
-                                    <p class="card-text">Curso de Vue JS</p>
-                                    <button data-value="300" class="btn btn-primary btn-add">
-                                        Adicionar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <ListaProdutos>
+                    <Produto />
+                </ListaProdutos>
                 </div>
                 <div class="col-sm-4">
-                    <div class="carrinho">
-                        <h4>Carrinho de Compras</h4>
-                        <div class="carrinho__itens">
-                            <div class="card carrinho__item">
-                                <div class="card-body">
-                                    <h5 class="card-title">Curso FW</h5>
-                                    <p class="card-text">Preço Unidade: R$ 300,00
-                                    | Quantidade: 2</p>
-                                    <p class="card-text">Valor : R$ 600,00</p>
-                                    <button data-produto-id="1" class="btn btn-danger btn-sm btn-remove">Remover</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carrinho__total mt-2 p-3">
-                            <h6>Total: R$ <strong>600,00</strong></h6>
-                        </div>
-                    </div>
+                    <Carrinho />
                 </div>
             </div>
         </div>
